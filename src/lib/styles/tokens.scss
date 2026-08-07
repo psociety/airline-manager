@@ -1,0 +1,58 @@
+:root {
+	--bg-dark: #2a303c;
+	--bg-dark-header: #202530;
+	--bg-light: #f4f5f7;
+	--card-bg: #ffffff;
+	--accent-teal: #00d09c;
+	--accent-red: #ff3b30;
+	--accent-yellow: #ffcc00;
+	--accent-green: #34c759;
+	--accent-blue: #0d1e40;
+	--text-main: #1c1d21;
+	--text-muted: #6b7280;
+	--border-color: #e5e7eb;
+	--sidebar-width: 240px;
+}
+
+$bg-dark: var(--bg-dark);
+$bg-dark-header: var(--bg-dark-header);
+$bg-light: var(--bg-light);
+$card-bg: var(--card-bg);
+$accent-teal: var(--accent-teal);
+$accent-red: var(--accent-red);
+$accent-yellow: var(--accent-yellow);
+$accent-green: var(--accent-green);
+$text-main: var(--text-main);
+$text-muted: var(--text-muted);
+$border-color: var(--border-color);
+
+$unit: 4px;
+$spacing-1: $unit;
+$spacing-2: $unit * 2;
+$spacing-3: $unit * 3;
+$spacing-4: $unit * 4;
+$spacing-5: $unit * 5;
+$spacing-6: $unit * 6;
+$spacing-8: $unit * 8;
+
+$fs-tiny: 10px;
+$fs-mini: 11px;
+$fs-small: 12px;
+$fs-base: 13px;
+$fs-medium: 14px;
+$fs-large: 18px;
+$fs-xlarge: 22px;
+$fs-title: 28px;
+
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+$fw-black: 900;
+
+$lh-tight: 1.2;
+$lh-read: 1.5;
+
+$radius-small: 4px;
+$radius-medium: 6px;
+$radius-large: 12px;
