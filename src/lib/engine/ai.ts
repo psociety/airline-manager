@@ -306,7 +306,9 @@ const repriceRoutes = async (company: Company, rng: Rng): Promise<void> => {
  * reluctance fresh each day averages every carrier into the same middling manager within
  * a few weeks. Tied to the ICAO code, a carrier that does not care never starts caring.
  */
-const hiringDispositionOf = (company: Company): { reviewChance: number; budgetShare: number } => {
+export const hiringDispositionOf = (
+	company: Company
+): { reviewChance: number; budgetShare: number } => {
 	const keenness = seededRng('ai-hiring', company.icao)();
 	if (keenness < NEVER_HIRES_BELOW) return { reviewChance: 0, budgetShare: 0 };
 

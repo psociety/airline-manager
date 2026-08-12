@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { FIXTURE_CASH, advanceHours, freshWorld, runAiDays } from './testing/world';
+import { hiringDispositionOf } from './ai';
 import { TOTAL_GATE_COUNT, gateCountFor } from '$data/gates';
 import { AIRCRAFT_MODELS, defaultSeatConfig, getModel } from '$data/aircraft';
 import { availableGatesAt } from '$db/repo';
@@ -535,21 +536,22 @@ describe('airline simulation', () => {
 			expect(Math.min(...shares)).toBeLessThan(0.2);
 		});
 
-		it('should keep an AI airline on the same footing about payroll as the weeks pass', async () => {
-			await runAiDays(14);
-			const midway = await db.companies.where('controller').equals('ai').toArray();
-			const reluctant = midway
-				.filter((carrier) => carrier.hired_workers === 0)
-				.map((carrier) => carrier.icao);
+		it('should leave the airlines that never hire on agency staff for good', async () => {
+			await runAiDays(56);
 
-			await runAiDays(42);
+			const carriers = await db.companies.where('controller').equals('ai').toArray();
+			const neverHires = carriers.filter(
+				(carrier) => hiringDispositionOf(carrier).reviewChance === 0
+			);
+			const everyoneElse = carriers.filter(
+				(carrier) => hiringDispositionOf(carrier).reviewChance > 0
+			);
 
-			const later = await db.companies.where('controller').equals('ai').toArray();
-			expect(reluctant.length).toBeGreaterThan(0);
-			for (const icao of reluctant) {
-				const carrier = later.find((candidate) => candidate.icao === icao);
-				expect(carrier!.hired_workers).toBe(0);
+			expect(neverHires.length).toBeGreaterThan(0);
+			for (const carrier of neverHires) {
+				expect(carrier.hired_workers).toBe(0);
 			}
+			expect(everyoneElse.some((carrier) => carrier.hired_workers > 0)).toBe(true);
 		});
 
 		it('should never hire an AI airline past the externals it has', async () => {
