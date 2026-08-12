@@ -6,11 +6,6 @@ on:
   # Lets you redeploy the current main from the Actions tab without an empty commit.
   workflow_dispatch:
 
-# A project page is served from https://<owner>.github.io/<repo>/, so the build needs that
-# prefix baked into every link and asset. GITHUB_REPOSITORY is "<owner>/<repo>".
-env:
-  BASE_PATH: /${{ github.event.repository.name }}
-
 permissions:
   contents: read
   pages: write
@@ -38,7 +33,12 @@ jobs:
 
       - run: npm test
 
+      # A project page is served from https://<owner>.github.io/<repo>/, so the build needs that
+      # prefix baked into every link and asset. Scoped to this step alone: the tests assert
+      # root-relative URLs, so handing them a base path would fail them.
       - run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
 
       - name: Add the SPA fallback and disable Jekyll
         # Every route renders client-side, so a deep link like /fleet has no file of its own.
