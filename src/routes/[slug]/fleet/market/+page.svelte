@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Modal from '$components/Modal.svelte';
 	import Money from '$components/Money.svelte';
@@ -117,7 +118,7 @@
 
 <PageHeader title="AIRCRAFT MARKET" subtitle="{visibleModels.length} of {AIRCRAFT_MODELS.length} types shown">
 	{#snippet actions()}
-		<a class="e-button e-button--ghost e-button--small" href={`/${slug}/fleet`}>
+		<a class="e-button e-button--ghost e-button--small" href={`${base}/${slug}/fleet`}>
 			<ArrowLeft size={14} /> Back to fleet
 		</a>
 	{/snippet}

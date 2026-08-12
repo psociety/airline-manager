@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Countdown from '$components/Countdown.svelte';
 	import Modal from '$components/Modal.svelte';
@@ -134,7 +135,7 @@
 		<StatBox icon={Users} value={employees.toLocaleString('de-DE')} label="Crew required" />
 	{/snippet}
 	{#snippet actions()}
-		<a class="e-button e-button--primary" href={`/${slug}/fleet/market`}>
+		<a class="e-button e-button--primary" href={`${base}/${slug}/fleet/market`}>
 			<ShoppingCart size={16} /> Buy or lease
 		</a>
 	{/snippet}
@@ -145,7 +146,7 @@
 		<div class="e-empty__title">No aircraft yet</div>
 		<p>Your first aircraft is delivered instantly. Every later order takes up to an hour.</p>
 		<p class="e-fleet__cta">
-			<a class="e-button e-button--primary" href={`/${slug}/fleet/market`}>
+			<a class="e-button e-button--primary" href={`${base}/${slug}/fleet/market`}>
 				<ShoppingCart size={16} /> Open the aircraft market
 			</a>
 		</p>

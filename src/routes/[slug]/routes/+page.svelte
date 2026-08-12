@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import AirportPicker from '$components/AirportPicker.svelte';
 	import AuditPanel from '$components/AuditPanel.svelte';
@@ -159,7 +160,7 @@
 		submitting = false;
 		if (created) {
 			creating = false;
-			await goto(`/${slug}/routes/${created.id}`);
+			await goto(`${base}/${slug}/routes/${created.id}`);
 		}
 	};
 
@@ -192,7 +193,7 @@
 	<div class="e-panel e-empty">
 		<div class="e-empty__title">Buy a gate first</div>
 		<p>A route starts at a gate you own.</p>
-		<p class="e-routes__cta"><a class="e-button" href={`/${slug}/gates`}>Go to gates</a></p>
+		<p class="e-routes__cta"><a class="e-button" href={`${base}/${slug}/gates`}>Go to gates</a></p>
 	</div>
 {:else if routes.length === 0}
 	<div class="e-panel e-empty">
@@ -205,7 +206,7 @@
 			{@const from = getAirport(route.fromIata)}
 			{@const to = getAirport(route.toIata)}
 			{@const departures = departuresByRoute.get(route.id) ?? 0}
-			<a class="e-unit-card e-unit-card--clickable" href={`/${slug}/routes/${route.id}`}>
+			<a class="e-unit-card e-unit-card--clickable" href={`${base}/${slug}/routes/${route.id}`}>
 				<div class="e-unit-card__status e-status--in-use">
 					<RouteIcon size={14} /> {departures} departures / week
 				</div>

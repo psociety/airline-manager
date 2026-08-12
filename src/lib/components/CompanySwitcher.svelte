@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import { playerCompanies } from '$db/repo';
 	import type { Company } from '$db/schema';
@@ -23,8 +24,10 @@
 		open = false;
 		if (target.slug === company.slug) return;
 
-		const section = $page.url.pathname.split('/').slice(2).join('/');
-		await goto(`/${target.slug}${section ? `/${section}` : ''}`);
+		// Dropped from the front so the segments count from the airline's slug whether the game is
+		// served at the root or under a base path.
+		const section = $page.url.pathname.slice(base.length).split('/').slice(2).join('/');
+		await goto(`${base}/${target.slug}${section ? `/${section}` : ''}`);
 	};
 </script>
 
@@ -55,7 +58,7 @@
 				type="button"
 				onclick={() => {
 					open = false;
-					void goto('/new');
+					void goto(`${base}/new`);
 				}}
 			>
 				<span><PlusCircle size={12} /> Found another airline</span>

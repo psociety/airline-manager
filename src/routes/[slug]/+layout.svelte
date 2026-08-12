@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import CompanySwitcher from '$components/CompanySwitcher.svelte';
 	import Countdown from '$components/Countdown.svelte';
@@ -80,9 +81,9 @@
 	]);
 
 	const isActive = (href: string): boolean => {
-		const base = `/${slug}`;
-		if (href === '') return $page.url.pathname === base || $page.url.pathname === `${base}/`;
-		return $page.url.pathname.startsWith(`${base}${href}`);
+		const companyRoot = `${base}/${slug}`;
+		if (href === '') return $page.url.pathname === companyRoot || $page.url.pathname === `${companyRoot}/`;
+		return $page.url.pathname.startsWith(`${companyRoot}${href}`);
 	};
 
 	const fastForward = async (hours: number): Promise<void> => {
@@ -99,7 +100,7 @@
 			<div class="e-panel e-empty">
 				<div class="e-empty__title">No such airline</div>
 				<p>The slug “{slug}” does not match any airline you control.</p>
-				<p><a class="e-button" href="/">Back to your airlines</a></p>
+				<p><a class="e-button" href="{base}/">Back to your airlines</a></p>
 			</div>
 		</main>
 	</div>
@@ -114,7 +115,7 @@
 					<ul class="e-nav-list">
 						{#each navigation as item (item.href)}
 							<li class="e-nav-list__item" class:e-nav-list__item--active={isActive(item.href)}>
-								<a href={`/${slug}${item.href}`}>
+								<a href={`${base}/${slug}${item.href}`}>
 									<item.icon size={18} />
 									{item.label}
 									{#if item.count > 0}

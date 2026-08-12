@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Countdown from '$components/Countdown.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
@@ -294,7 +295,7 @@
 	<div class="e-panel e-empty">
 		<div class="e-empty__title">No aircraft</div>
 		<p>Buy an aircraft before building a timetable.</p>
-		<p><a class="e-button" href={`/${slug}/fleet/market`}>Aircraft market</a></p>
+		<p><a class="e-button" href={`${base}/${slug}/fleet/market`}>Aircraft market</a></p>
 	</div>
 {:else}
 	<div class="e-scheduler">
@@ -326,7 +327,7 @@
 
 				{#if routes.length === 0}
 					<p class="e-scheduler__note">
-						No routes yet. <a href={`/${slug}/routes`}>Set one up</a> first.
+						No routes yet. <a href={`${base}/${slug}/routes`}>Set one up</a> first.
 					</p>
 				{:else}
 					{#each flyableRoutes as item (item.route.id)}

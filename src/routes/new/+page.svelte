@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { getAirport } from '$data/airports';
 	import { maxCategoryForAirport } from '$data/gates';
 	import { availableGateCountAt, createCompany, isIcaoTaken } from '$db/repo';
@@ -59,7 +60,7 @@
 		);
 
 		submitting = false;
-		if (company) await goto(`/${company.slug}`);
+		if (company) await goto(`${base}/${company.slug}`);
 	};
 </script>
 
@@ -72,7 +73,7 @@
 					Three details and you are in business.
 				</p>
 			</div>
-			<a class="e-button e-button--ghost e-button--small" href="/">
+			<a class="e-button e-button--ghost e-button--small" href="{base}/">
 				<ArrowLeft size={14} /> Back
 			</a>
 		</div>

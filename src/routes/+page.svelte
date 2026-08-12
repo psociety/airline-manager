@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { getAirport } from '$data/airports';
 	import { companyValuation, playerCompanies } from '$db/repo';
 	import { STARTING_CASH, TOTAL_SHARES, db, type Company } from '$db/schema';
@@ -115,7 +116,7 @@
 				<button class="e-button e-button--ghost e-button--small" type="button" onclick={restart}>
 					<RotateCcw size={14} /> Restart world
 				</button>
-				<a class="e-button e-button--primary" href="/new">
+				<a class="e-button e-button--primary" href="{base}/new">
 					<PlusCircle size={16} /> Found an airline
 				</a>
 			</div>
@@ -135,7 +136,7 @@
 					home airport.
 				</p>
 				<p class="e-landing__cta">
-					<a class="e-button e-button--primary" href="/new">
+					<a class="e-button e-button--primary" href="{base}/new">
 						<PlusCircle size={16} /> Found your first airline
 					</a>
 				</p>
@@ -146,7 +147,7 @@
 					<button
 						class="e-unit-card e-unit-card--clickable"
 						type="button"
-						onclick={() => goto(`/${row.company.slug}`)}
+						onclick={() => goto(`${base}/${row.company.slug}`)}
 					>
 						<div class="e-unit-card__status e-status--in-use">
 							<Plane size={14} /> {getAirport(row.company.homeIata).city}

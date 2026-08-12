@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you redeploy the current main from the Actions tab without an empty commit.
+  workflow_dispatch:
+
+# A project page is served from https://<owner>.github.io/<repo>/, so the build needs that
+# prefix baked into every link and asset. GITHUB_REPOSITORY is "<owner>/<repo>".
+env:
+  BASE_PATH: /${{ github.event.repository.name }}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; a superseded run is cancelled rather than queued.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run check
+
+      - run: npm test
+
+      - run: npm run build
+
+      - name: Add the SPA fallback and disable Jekyll
+        # Every route renders client-side, so a deep link like /fleet has no file of its own.
+        # GitHub Pages serves 404.html for those, and the app boots from it and routes onwards.
+        # .nojekyll keeps Pages from stripping the _app/ directory, whose name starts with "_".
+        run: |
+          cp build/index.html build/404.html
+          touch build/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

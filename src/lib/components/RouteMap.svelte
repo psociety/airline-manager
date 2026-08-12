@@ -2,6 +2,7 @@
 	import { getModel } from '$data/aircraft';
 	import { getAirport } from '$data/airports';
 	import {
+		AIRCRAFT_SPRITE_SHEET,
 		AircraftSprite,
 		spriteForModel,
 		spriteOffset,
@@ -213,7 +214,9 @@
 	});
 </script>
 
-<div class="e-map" bind:this={container}></div>
+<!-- The sheet's URL carries the deployment's base path, so it is handed to the markers as a
+	custom property rather than hardcoded in the stylesheet below. -->
+<div class="e-map" bind:this={container} style:--plane-sheet="url('{AIRCRAFT_SPRITE_SHEET}')"></div>
 
 <style lang="scss">
 	.e-map {
@@ -228,7 +231,7 @@
 		width: var(--plane-icon-size);
 		height: var(--plane-icon-size);
 		/* One cell of the 3x3 sheet, scaled from its 100px source. */
-		background-image: url('/icons/airplanes.png');
+		background-image: var(--plane-sheet);
 		background-repeat: no-repeat;
 		background-size: var(--plane-sheet-size) var(--plane-sheet-size);
 		/* Keeps the yellow airframe legible over the pale basemap. */

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import AuditPanel from '$components/AuditPanel.svelte';
 	import Money from '$components/Money.svelte';
@@ -224,7 +225,7 @@
 		if (!confirm('Close this route and drop it from every schedule?')) return;
 
 		await game.act(() => deleteRoute(route!.id), 'Route closed');
-		await goto(`/${slug}/routes`);
+		await goto(`${base}/${slug}/routes`);
 	};
 </script>
 
@@ -237,7 +238,7 @@
 		subtitle="{from.city} ⇄ {to.city} · {route.distanceKm.toLocaleString('de-DE')} km · {weeklyDepartures} departures/week"
 	>
 		{#snippet actions()}
-			<a class="e-button e-button--ghost e-button--small" href={`/${slug}/routes`}>
+			<a class="e-button e-button--ghost e-button--small" href={`${base}/${slug}/routes`}>
 				<ArrowLeft size={14} /> All routes
 			</a>
 			<button class="e-button e-button--small" type="button" onclick={removeRoute}>
@@ -391,7 +392,7 @@
 			{:else}
 				<p class="e-pricing__note">
 					Nothing is scheduled on this route yet, so there is no load to project.
-					<a href={`/${slug}/schedule`}>Open the scheduler</a> to assign an aircraft.
+					<a href={`${base}/${slug}/schedule`}>Open the scheduler</a> to assign an aircraft.
 				</p>
 			{/if}
 		</div>
@@ -460,7 +461,7 @@
 	<div class="e-panel e-empty">
 		<div class="e-empty__title">Route not found</div>
 		<p>It may have been closed.</p>
-		<p><a class="e-button" href={`/${slug}/routes`}>Back to routes</a></p>
+		<p><a class="e-button" href={`${base}/${slug}/routes`}>Back to routes</a></p>
 	</div>
 {/if}
 

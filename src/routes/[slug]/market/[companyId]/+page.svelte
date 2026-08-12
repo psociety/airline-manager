@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Money from '$components/Money.svelte';
 	import PageHeader from '$components/PageHeader.svelte';
@@ -44,7 +45,7 @@
 	 * carries it along — so reading a filing costs the player nothing about how they had the table
 	 * arranged. Nothing on this page reads these itself; it only passes them on.
 	 */
-	const backToMarket = $derived(`/${slug}/market${$page.url.search}`);
+	const backToMarket = $derived(`${base}/${slug}/market${$page.url.search}`);
 
 	let company = $state<Company | null>(null);
 	let dossier = $state<CompanyDossier | null>(null);

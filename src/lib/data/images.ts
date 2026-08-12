@@ -1,8 +1,9 @@
+import { base } from '$lib/paths';
 import imageFiles from './aircraft_images.json';
 import type { AircraftModel } from './types';
 
-const AIRCRAFT_IMAGE_BASE = '/aircraft/';
-export const AIRCRAFT_IMAGE_PLACEHOLDER = '/aircraft-placeholder.svg';
+const AIRCRAFT_IMAGE_BASE = `${base}/aircraft/`;
+export const AIRCRAFT_IMAGE_PLACEHOLDER = `${base}/aircraft-placeholder.svg`;
 
 const filesByLowerName = new Map<string, string>(
 	(imageFiles as string[]).map((file) => [file.toLowerCase(), file])

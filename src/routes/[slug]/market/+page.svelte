@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Modal from '$components/Modal.svelte';
 	import Money from '$components/Money.svelte';
@@ -308,7 +309,7 @@
 					<td>
 						<a
 							class="e-market__name e-market__name--link"
-							href={`/${slug}/market/${row.company.id}${sortQuery}`}
+							href={`${base}/${slug}/market/${row.company.id}${sortQuery}`}
 						>
 							{@render airlineName(row)}
 							<ChevronRight size={12} />

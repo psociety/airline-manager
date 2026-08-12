@@ -3,6 +3,13 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	// The path the game is served from, read by `$lib/paths`. It has to be a build-time constant
+	// rather than `$app/paths`, whose module boots SvelteKit's client runtime — and that reaches
+	// for `window`, which the node-environment engine tests do not have. Kept in step with
+	// `kit.paths.base` in svelte.config.js: both read BASE_PATH.
+	define: {
+		__BASE_PATH__: JSON.stringify(process.env.BASE_PATH ?? '')
+	},
 	css: {
 		preprocessorOptions: {
 			// Vite still defaults to Sass's legacy JS API, which warns on every compile

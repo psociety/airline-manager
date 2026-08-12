@@ -1,5 +1,7 @@
 node_modules
 .svelte-kit
 build
+build.zip
+prompt.txt
 .DS_Store
 .idea

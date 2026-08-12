@@ -1,7 +1,8 @@
+import { base } from '$lib/paths';
 import { isCargo } from './aircraft';
 import type { AircraftModel } from './types';
 
-export const AIRCRAFT_SPRITE_SHEET = '/icons/airplanes.png';
+export const AIRCRAFT_SPRITE_SHEET = `${base}/icons/airplanes.png`;
 
 /** The sheet is a 3×3 grid of 100×100 top-down icons, all pointing north. */
 export const SPRITE_CELL = 100;

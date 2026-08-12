@@ -10,6 +10,11 @@ const config = {
 			precompress: false,
 			strict: false
 		}),
+		// GitHub Pages serves a project repo from /<repo>/, so every link and asset needs that
+		// prefix baked in at build time. Locally BASE_PATH is unset and the app lives at the root.
+		paths: {
+			base: process.env.BASE_PATH ?? ''
+		},
 		alias: {
 			$data: 'src/lib/data',
 			$db: 'src/lib/db',

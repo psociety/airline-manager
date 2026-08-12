@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$lib/paths';
 	import { page } from '$app/stores';
 	import Countdown from '$components/Countdown.svelte';
 	import Money from '$components/Money.svelte';
@@ -124,7 +125,7 @@
 			<div class="e-panel e-empty">
 				<div class="e-empty__title">Nothing on the map yet</div>
 				<p>Open a route and schedule it — your aircraft will show up here while they fly.</p>
-				<p><a class="e-button e-button--primary" href={`/${slug}/routes`}>Set up a route</a></p>
+				<p><a class="e-button e-button--primary" href={`${base}/${slug}/routes`}>Set up a route</a></p>
 			</div>
 		{:else}
 			<RouteMap {routes} flights={airborne} {fleet} {rivalRoutes} colour={company.colour} />
